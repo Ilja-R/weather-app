@@ -14,7 +14,7 @@ if not API_KEY:
 weather_cache = cache.ExpireCache()
 
 
-async def get_weather(cities: list[str]) -> tuple:
+async def get_weather_list(cities: list[str]) -> tuple:
     async with aiohttp.ClientSession() as session:
         tasks = [get_weather(session, city.lower()) for city in cities]
         results = await asyncio.gather(*tasks)

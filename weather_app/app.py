@@ -11,7 +11,7 @@ async def main():
         else:
             print(f"Getting weather for {user_input}\n")
             cities = user_input.split(",")
-            city_weather = await weather.get_weather(cities)
+            city_weather = await weather.get_weather_list(cities)
             pretty_print(city_weather)
 
     print("Goodbye!")
