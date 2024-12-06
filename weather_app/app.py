@@ -18,19 +18,26 @@ async def main():
 
 
 def pretty_print(weather_data: tuple):
-    for data in weather_data:
-        print(f"City: {data['key']}")
+    def print_weather_data(city_weather_data):
+        print(f"    Temperature: {city_weather_data.get('temp', 'N/A')}°C")
+        print(f"    Temperature: {city_weather_data.get('temp_fahrenheit', 'N/A')}°F")
+        print(f"    Weather: {city_weather_data.get('description', 'N/A')}")
+        print(f"    Humidity: {city_weather_data.get('humidity', 'N/A')}%")
+        print(f"    Wind Speed: {city_weather_data.get('wind_speed', 'N/A')} m/s")
 
+    def print_error_data(error_data):
+        print(f"    Error: {error_data.get('error', 'Unknown error')}")
+        if 'status_code' in error_data:
+            print(f"    Status Code: {error_data['status_code']}")
+            print(f"    Reason: {error_data.get('reason', 'No reason provided')}")
+
+    for data in weather_data:
+        print(f"City: {data['city']}")
         if 'error' in data:
-            print(f"    Error: {data['error']}")
-            print()
+            print_error_data(data)
         else:
-            print(f"    Temperature: {data['temp']}°C")
-            print(f"    Temperature: {data['temp_fahrenheit']}°F")
-            print(f"    Weather: {data['description']}")
-            print(f"    Humidity: {data['humidity']}%")
-            print(f"    Wind Speed: {data['wind_speed']}m/s")
-            print()
+            print_weather_data(data)
+        print()
 
 
 if __name__ == "__main__":

@@ -37,17 +37,17 @@ async def fetch_weather(session, city):
         async with session.get(url, timeout=10) as response:
             if response.status != 200:
                 return {
-                    "key": city,
+                    "city": city,
                     "status_code": response.status,
                     "reason": response.reason,
-                    "error": f"Failed to get weather for key {city}"
+                    "error": f"Failed to get weather for city {city}"
                 }
             response_json = await response.json()
             return extract(response_json, city)
     except aiohttp.ClientError as e:
-        return {"key": city, "error": f"Network error: {str(e)}"}
+        return {"city": city, "error": f"Network error: {str(e)}"}
     except Exception as e:
-        return {"key": city, "error": f"Unexpected error: {str(e)}"}
+        return {"city": city, "error": f"Unexpected error: {str(e)}"}
 
 
 def extract(data: dict, city_name: str) -> dict:
@@ -58,7 +58,7 @@ def extract(data: dict, city_name: str) -> dict:
     weather_description = data['weather'][0]['description']
     humidity = data['main'].get('humidity', 'N/A')
     wind_speed = data['wind'].get('speed', 'N/A')
-    return {"key": city_name, "temp_fahrenheit": temp_fahrenheit, "temp": temp_celsius,
+    return {"city": city_name, "temp_fahrenheit": temp_fahrenheit, "temp": temp_celsius,
             "description": weather_description,
             "humidity": humidity, "wind_speed": wind_speed}
 
