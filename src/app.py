@@ -12,9 +12,9 @@ async def main():
         else:
             cities = list(OrderedDict.fromkeys(city.strip().lower() for city in user_input.split(",") if city.strip()))
             print(f"Fetching weather data for {', '.join(cities)}\n")
-            city_weather = await weather.get_weather_from_list(cities)
-            for data in city_weather:
-                print(data)
+            weather_fetch_results = await weather.get_weather_from_list(cities)
+            for data in weather_fetch_results:
+                print(str(data))
 
     print("Goodbye!")
 

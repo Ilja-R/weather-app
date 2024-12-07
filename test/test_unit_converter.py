@@ -1,5 +1,5 @@
 import unittest
-from helper.weather_helper import get_celsius_from_kalvin, get_fahrenheit_from_kalvin
+from helper.unit_converter import get_celsius_from_kalvin, get_fahrenheit_from_kalvin
 
 
 class TestWeatherHelper(unittest.TestCase):
