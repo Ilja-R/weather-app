@@ -1,5 +1,6 @@
 from service import weather
 import asyncio
+from collections import OrderedDict
 
 
 async def main():
@@ -9,8 +10,8 @@ async def main():
         if user_input.strip().lower() == "q":
             break
         else:
-            print(f"Getting weather for {user_input}\n")
-            cities = user_input.split(",")
+            cities = list(OrderedDict.fromkeys(city.strip().lower() for city in user_input.split(",") if city.strip()))
+            print(f"Fetching weather data for {', '.join(cities)}\n")
             city_weather = await weather.get_weather_from_list(cities)
             for data in city_weather:
                 print(data)
